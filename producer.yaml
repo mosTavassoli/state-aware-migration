@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-producer
+  template:
+   metadata:
+      labels:
+        app: ms-producer
+   spec:
+      containers:
+      - name: tc
+        image: sixsq/iproute2
+        command: ["sleep","infinity"]
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+      - name: ms-producer
+        image: mostafa2020/prod-cons:v26
+        command:
+          - sh
+          - -c
+          - |
+            ./bin/producer 1 1
+        volumeMounts:
+        - name: kubectl-config-volume
+          mountPath: /root/.kube
+          readOnly: true
+      volumes:
+      - name: kubectl-config-volume
+        secret:
+          secretName: kubectl-config
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker-3
