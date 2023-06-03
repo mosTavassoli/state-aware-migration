@@ -1,13 +1,13 @@
 #!/bin/bash
 
-SECRET_NAME="kubectl-config"
+# SECRET_NAME="kubectl-config"
 
-if kubectl get secrets | grep -qw "$SECRET_NAME"; then
-  echo "Secret $SECRET_NAME already exists"
-else
-  echo "Creating secret $SECRET_NAME"
-  kubectl create secret generic "$SECRET_NAME" --from-file=config=/home/crownlabs/.kube/config
-fi
+# if kubectl get secrets | grep -qw "$SECRET_NAME"; then
+#   echo "Secret $SECRET_NAME already exists"
+# else
+#   echo "Creating secret $SECRET_NAME"
+#   kubectl create secret generic "$SECRET_NAME" --from-file=config=/home/crownlabs/.kube/config
+# fi
 
 # set -x
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-SECRET_NAME="kubectl-config"
+# SECRET_NAME="kubectl-config"
 
-if kubectl get secrets | grep -qw "$SECRET_NAME"; then
-  echo "Secret $SECRET_NAME already exists"
-else
-  echo "Creating secret $SECRET_NAME"
-  kubectl create secret generic "$SECRET_NAME" --from-file=config=/home/crownlabs/.kube/config
-fi
+# if kubectl get secrets | grep -qw "$SECRET_NAME"; then
+#   echo "Secret $SECRET_NAME already exists"
+# else
+#   echo "Creating secret $SECRET_NAME"
+#   kubectl create secret generic "$SECRET_NAME" --from-file=config=/home/crownlabs/.kube/config
+# fi
 
 set -x
 
@@ -42,6 +42,7 @@ kubectl label nodes worker-3 etcdlabel=etcdlabel
 
 for ((i=1; i<=20; i++))
 do
+	# replace the address of etcd 	 
 	helm install my-etcd /home/crownlabs/etcd-k8s-experiment/etcd/etcd8s-net/ --set replicaCount=1
 	sleep 80
 	./producer.sh 1 1 worker-3

@@ -33,4 +33,8 @@ nodeSelector:
   etcdlabel : etcdlabel
 ```
 
-Finally, you can run the code for related testing applications, centralized.sh, reactive.sh, or proactive.sh.
+Finally, you can run the code for related testing applications, centralized.sh, reactive.sh, or proactive.sh. Just before, inside these files, replace the address of the helm configuration to the proper place in your machine.
+
+```
+helm install my-etcd <proper-address> --set replicaCount=1
+```
